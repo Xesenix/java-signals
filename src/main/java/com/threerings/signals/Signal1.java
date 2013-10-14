@@ -6,51 +6,65 @@
 package com.threerings.signals;
 
 /** Dispatches events to listeners with one accompanying argument. */
-public class Signal1<A>
-    implements SignalConnector1<A>
+public class Signal1<A> implements SignalConnector1<A>
 {
-    /** Calls apply on all connected listeners. */
-    public void dispatch (A a)
-    {
-        _signaller.dispatch(a);
-    }
+	/** Calls apply on all connected listeners. */
+	public void dispatch(A a)
+	{
+		_signaller.dispatch(a);
+	}
 
-    /** Adds <code>listener</code> at {@link Signals#DEFAULT_PRIORITY}. */
-    public Connection connect (Listener0 listener)
-    {
-        return connect(listener, Signals.DEFAULT_PRIORITY);
-    }
-    /**
-     * Adds <code>listener</code> at <code>priority</code>. Listeners with a higher priority will
-     * have their apply called before listeners with a lower priority. Listeners with equal priority
-     * are applied in the order they're added to the signal.
-     */
-    public Connection connect (Listener0 listener, int priority)
-    {
-        return _signaller.connect(listener, priority);
-    }
 
-    /** Adds <code>listener</code> at {@link Signals#DEFAULT_PRIORITY}. */
-    public Connection connect (Listener1<? super A> listener)
-    {
-        return connect(listener, Signals.DEFAULT_PRIORITY);
-    }
+	/** Adds <code>listener</code> at {@link Signals#DEFAULT_PRIORITY}. */
+	public Connection connect(Listener0 listener)
+	{
+		return connect(listener, Signals.DEFAULT_PRIORITY);
+	}
 
-    /**
-     * Adds <code>listener</code> at <code>priority</code>. Listeners with a higher priority will
-     * have their apply called before listeners with a lower priority. Listeners with equal priority
-     * are applied in the order they're added to the signal.
-     */
-    public Connection connect (Listener1<? super A> listener, int priority)
-    {
-        return _signaller.connect(listener, priority);
-    }
 
-    /** Removes <code>listener</code> from this signal if it's present.*/
-    public void disconnect (Listener listener)
-    {
-        _signaller.disconnect(listener);
-    }
+	/**
+	 * Adds <code>listener</code> at <code>priority</code>. Listeners with a
+	 * higher priority will have their apply called before listeners with a
+	 * lower priority. Listeners with equal priority are applied in the order
+	 * they're added to the signal.
+	 */
+	public Connection connect(Listener0 listener, int priority)
+	{
+		return _signaller.connect(listener, priority);
+	}
 
-    protected final Signaller _signaller = new Signaller();
+
+	/** Adds <code>listener</code> at {@link Signals#DEFAULT_PRIORITY}. */
+	public Connection connect(Listener1<? super A> listener)
+	{
+		return connect(listener, Signals.DEFAULT_PRIORITY);
+	}
+
+
+	/**
+	 * Adds <code>listener</code> at <code>priority</code>. Listeners with a
+	 * higher priority will have their apply called before listeners with a
+	 * lower priority. Listeners with equal priority are applied in the order
+	 * they're added to the signal.
+	 */
+	public Connection connect(Listener1<? super A> listener, int priority)
+	{
+		return _signaller.connect(listener, priority);
+	}
+
+
+	/** Removes <code>listener</code> from this signal if it's present. */
+	public void disconnect(Listener listener)
+	{
+		_signaller.disconnect(listener);
+	}
+
+
+	public void disconnect()
+	{
+		_signaller.disconnect();
+	}
+
+
+	protected final Signaller _signaller = new Signaller();
 }

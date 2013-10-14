@@ -7,6 +7,6 @@ package com.threerings.signals;
 
 public interface Listener0 extends Listener
 {
-    /** Called when any signals this listener is connected to dispatch. */
-    void apply ();
+	/** Called when any signals this listener is connected to dispatch. */
+	void apply();
 }
